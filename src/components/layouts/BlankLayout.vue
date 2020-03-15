@@ -1,0 +1,9 @@
+<template>
+    <v-content>
+        <div>
+            <v-fade-transition>
+                <router-view></router-view>
+            </v-fade-transition>
+        </div>
+    </v-content>
+</template>
