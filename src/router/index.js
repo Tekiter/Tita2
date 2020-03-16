@@ -9,6 +9,21 @@ const routes = [
         name: 'Home',
         component: () => import('../views/Home.vue'),
     },
+    {
+        path: '/dataset',
+        name: 'DatasetSelect',
+        component: () => import('../views/DatasetSelect.vue'),
+    },
+    {
+        path: '/select',
+        name: 'ClassSelect',
+        component: () => import('../views/ClassSelect.vue'),
+    },
+    {
+        path: '/result',
+        name: 'Result',
+        component: () => import('../views/Result.vue'),
+    },
 ]
 
 const router = new VueRouter({
