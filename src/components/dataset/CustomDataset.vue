@@ -5,26 +5,36 @@
             accept="application/json"
         ></file-upload>
         <v-list subheader>
-            <v-list-item-group>
-                <v-list-item
-                    v-for="(dataset, key) in datasetList"
-                    :key="`local-dataset-${key}`"
-                >
-                    <v-list-item-content>
-                        {{ dataset.school }} {{ dataset.timespan }}
-                    </v-list-item-content>
-                    <v-list-item-action>
-                        <v-btn>시작하기</v-btn>
-                    </v-list-item-action>
-                </v-list-item>
-            </v-list-item-group>
+            <v-list-item
+                v-for="(dataset, key) in datasetList"
+                :key="`local-dataset-${key}`"
+            >
+                <v-list-item-content>
+                    {{ dataset.school }} {{ dataset.timespan }}
+                </v-list-item-content>
+                <v-list-item-action>
+                    <div class="d-flex">
+                        <v-btn icon @click="deleteDataset(key)">
+                            <v-icon>
+                                mdi-delete
+                            </v-icon>
+                        </v-btn>
+                        <v-btn class="ml-2">시작하기</v-btn>
+                    </div>
+                </v-list-item-action>
+            </v-list-item>
         </v-list>
     </div>
 </template>
 <script>
 import FileUpload from './FileUpload'
 
-import { readDataset, saveDataset, getDatasetList } from '../../utils/dataset'
+import {
+    readDataset,
+    saveDataset,
+    getDatasetList,
+    removeDataset,
+} from '../../utils/dataset'
 
 export default {
     components: {
@@ -34,14 +44,21 @@ export default {
         datasetList: {},
     }),
     methods: {
+        fetchDatasets() {
+            this.datasetList = getDatasetList()
+        },
         async userUpload(file) {
             const dataset = await readDataset(file)
-            // console.log(dataset)
             saveDataset(dataset)
+            this.fetchDatasets()
+        },
+        deleteDataset(key) {
+            removeDataset(key)
+            this.fetchDatasets()
         },
     },
     async created() {
-        this.datasetList = getDatasetList()
+        this.fetchDatasets()
     },
 }
 </script>

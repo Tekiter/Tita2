@@ -52,6 +52,16 @@ export function getDataset(key) {
     return loadStorage(`dataset-${key}`)
 }
 
+export function removeDataset(key) {
+    console.log(key)
+    const datasets = loadStorage('dataset-meta', {})
+
+    delete datasets[key]
+
+    saveStorage('dataset-meta', datasets)
+    localStorage.removeItem(`dataset-${key}`)
+}
+
 export function saveDataset(dataset) {
     const datasets = loadStorage('dataset-meta', {})
 
