@@ -19,7 +19,9 @@
                                 mdi-delete
                             </v-icon>
                         </v-btn>
-                        <v-btn class="ml-2">시작하기</v-btn>
+                        <v-btn class="ml-2" @click="selectDataset(key)">
+                            시작하기
+                        </v-btn>
                     </div>
                 </v-list-item-action>
             </v-list-item>
@@ -34,6 +36,7 @@ import {
     saveDataset,
     getDatasetList,
     removeDataset,
+    getDataset,
 } from '../../utils/dataset'
 
 export default {
@@ -55,6 +58,10 @@ export default {
         deleteDataset(key) {
             removeDataset(key)
             this.fetchDatasets()
+        },
+        selectDataset(key) {
+            const dataset = getDataset(key)
+            this.$emit('choose', dataset)
         },
     },
     async created() {

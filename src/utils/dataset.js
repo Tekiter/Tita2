@@ -1,3 +1,5 @@
+import { loadStorage, saveStorage } from './storage'
+
 /**
  * File 오브젝트에서 실제 내용을 읽어온다.
  * @param {File} 파일
@@ -28,28 +30,16 @@ export async function readDataset(file) {
     return data
 }
 
-function saveStorage(key, value) {
-    localStorage.setItem(key, JSON.stringify(value))
-}
-
-function loadStorage(key, def) {
-    const raw = localStorage.getItem(key)
-    if (raw === null) {
-        return def
-    }
-    return JSON.parse(raw)
-}
-
 function randomKey() {
     return Math.ceil(Math.random() * 10e5)
 }
 
 export function getDatasetList() {
-    return loadStorage('dataset-meta')
+    return loadStorage('dataset-meta', {})
 }
 
 export function getDataset(key) {
-    return loadStorage(`dataset-${key}`)
+    return loadStorage(`dataset-${key}`, {})
 }
 
 export function removeDataset(key) {

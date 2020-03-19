@@ -2,7 +2,7 @@
     <v-container>
         <div>
             <h2>과목목록 가져오기</h2>
-            <custom-dataset />
+            <custom-dataset @choose="selectDataset" />
         </div>
         <div>
             <h2>준비된 과목목록으로 시작하기</h2>
@@ -13,6 +13,7 @@
 <script>
 import DatasetList from '../components/dataset/DatasetList'
 import CustomDataset from '../components/dataset/CustomDataset'
+import { mapActions } from 'vuex'
 
 export default {
     components: {
@@ -22,6 +23,12 @@ export default {
     data: () => ({
         schools: [],
     }),
-    methods: {},
+    methods: {
+        ...mapActions(['startSelection']),
+        selectDataset(dataset) {
+            this.startSelection({ dataset })
+            this.$router.push({ name: 'ClassSelect' })
+        },
+    },
 }
 </script>
