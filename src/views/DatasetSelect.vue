@@ -1,20 +1,27 @@
 <template>
     <v-container>
-        <h2>준비된 시간표로 시작하기</h2>
-        <dataset-filter :schools="schools"></dataset-filter>
-        <dataset-list></dataset-list>
+        <div>
+            <h2>과목목록 가져오기</h2>
+            <custom-dataset />
+        </div>
+        <div>
+            <h2>준비된 과목목록으로 시작하기</h2>
+            <dataset-list :schools="schools"></dataset-list>
+        </div>
     </v-container>
 </template>
 <script>
-import DatasetFilter from '../components/dataset/DatasetFilter'
 import DatasetList from '../components/dataset/DatasetList'
+import CustomDataset from '../components/dataset/CustomDataset'
+
 export default {
     components: {
         DatasetList,
-        DatasetFilter,
+        CustomDataset,
     },
     data: () => ({
-        schools: ['가톨릭대학교'],
+        schools: [],
     }),
+    methods: {},
 }
 </script>
