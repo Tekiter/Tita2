@@ -35,6 +35,7 @@ export default {
             if (e.target.files[0]) {
                 this.$emit('upload', e.target.files[0])
             }
+            e.target.value = ''
         },
     },
 }
