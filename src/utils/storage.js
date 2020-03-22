@@ -14,8 +14,12 @@ export function saveStorage(key, value) {
  */
 export function loadStorage(key, def) {
     const raw = localStorage.getItem(key)
-    if (raw === null) {
+    if (raw === 'null' || raw === 'undefined') {
         return def
     }
-    return JSON.parse(raw)
+    try {
+        return JSON.parse(raw)
+    } catch {
+        return def
+    }
 }

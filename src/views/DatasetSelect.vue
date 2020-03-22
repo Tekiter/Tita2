@@ -24,7 +24,7 @@ export default {
         schools: [],
     }),
     methods: {
-        ...mapActions(['startSelection']),
+        ...mapActions('dataset', ['startSelection']),
         selectDataset(dataset) {
             this.startSelection({ dataset })
             this.$router.push({ name: 'ClassSelect' })

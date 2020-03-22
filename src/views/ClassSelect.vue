@@ -12,7 +12,7 @@
             <v-col>
                 <v-card>
                     <subject-list
-                        :items="dataset.subjects"
+                        :items="subjects"
                         :search="search"
                         @subjecthover="hover = $event"
                     ></subject-list>
@@ -42,11 +42,13 @@ export default {
         hover: {},
     }),
     computed: {
-        ...mapState(['dataset']),
-        ...mapGetters(['hasDataset']),
+        ...mapState('dataset', {
+            subjects: s => s.subjects,
+        }),
+        ...mapGetters('dataset', ['hasDataset']),
     },
     methods: {
-        ...mapActions(['loadCurrentStates']),
+        ...mapActions('dataset', ['loadCurrentStates']),
     },
     created() {
         this.loadCurrentStates()
