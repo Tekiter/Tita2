@@ -3,12 +3,19 @@
         <v-row>
             <v-col>
                 <v-card>
-                    <subject-filter :search.sync="search" />
+                    <schedule-preview
+                        :current-subject="hover"
+                    ></schedule-preview>
+                    <subject-filter :search.sync="search"></subject-filter>
                 </v-card>
             </v-col>
             <v-col>
                 <v-card>
-                    <subject-list :items="dataset.subjects" :search="search" />
+                    <subject-list
+                        :items="dataset.subjects"
+                        :search="search"
+                        @subjecthover="hover = $event"
+                    ></subject-list>
                 </v-card>
             </v-col>
             <v-col>
@@ -22,14 +29,17 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 
 import SubjectList from '../components/selection/SubjectList'
 import SubjectFilter from '../components/selection/SubjectFilter'
+import SchedulePreview from '../components/selection/SchedulePreview'
 
 export default {
     components: {
         SubjectList,
         SubjectFilter,
+        SchedulePreview,
     },
     data: () => ({
         search: '',
+        hover: {},
     }),
     computed: {
         ...mapState(['dataset']),

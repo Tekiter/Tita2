@@ -6,6 +6,7 @@
                     <v-list-item
                         v-for="(subject, idx) in items"
                         :key="`subject-${idx}`"
+                        @mouseover.native="mouseHover(subject)"
                     >
                         {{ subject.name }}
                     </v-list-item>
@@ -33,6 +34,11 @@ export default {
             return this.items.filter(subject => {
                 return subject.name.includes(this.search)
             })
+        },
+    },
+    methods: {
+        mouseHover(subject) {
+            this.$emit('subjecthover', subject)
         },
     },
 }
