@@ -1,6 +1,13 @@
 <template>
-    <div></div>
+    <div>
+        <mini-schedule></mini-schedule>
+    </div>
 </template>
 <script>
-export default {}
+import MiniSchedule from '../components/result/MiniSchedule'
+export default {
+    components: {
+        MiniSchedule,
+    },
+}
 </script>
