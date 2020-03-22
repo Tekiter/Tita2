@@ -3,8 +3,6 @@ import Vuex from 'vuex'
 
 import { loadStorage, saveStorage } from '../utils/storage'
 
-import dataset from './dataset'
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -44,5 +42,5 @@ export default new Vuex.Store({
             return false
         },
     },
-    modules: { dataset },
+    modules: {},
 })
