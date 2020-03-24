@@ -12,6 +12,7 @@
             <v-col>
                 <v-card>
                     <subject-list
+                        class="scrollable max-height"
                         :items="subjects"
                         :search="search"
                         @subjecthover="hover = $event"
@@ -24,6 +25,18 @@
         </v-row>
     </v-container>
 </template>
+<style lang="scss" scoped>
+.scrollable {
+    overflow-y: scroll;
+}
+
+.max-height {
+    $height: 80vh;
+
+    min-height: $height;
+    height: $height;
+}
+</style>
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 

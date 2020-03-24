@@ -1,22 +1,29 @@
 <template>
     <div>
-        <v-data-iterator :items="items" :search="search" disable-pagination>
-            <template v-slot:default="{ items }">
-                <v-list>
-                    <v-list-item
-                        v-for="(subject, idx) in items"
-                        :key="`subject-${idx}`"
-                        @mouseover.native="mouseHover(subject)"
-                    >
-                        {{ subject.name }}
-                    </v-list-item>
-                </v-list>
-            </template>
-        </v-data-iterator>
+        <v-list
+            v-infinite-scroll="loadMore"
+            infinite-scroll-disabled="busy"
+            infinite-scroll-distance="10"
+        >
+            <v-list-item
+                v-for="(subject, idx) in loaded"
+                :key="`subject-${idx}`"
+                @mouseover.native="mouseHover(subject)"
+            >
+                {{ subject.name }}
+            </v-list-item>
+        </v-list>
     </div>
 </template>
 <script>
+import infiniteScroll from 'vue-infinite-scroll'
+
+const lazyLoadChunk = 50
+
 export default {
+    directives: {
+        infiniteScroll,
+    },
     components: {},
     props: {
         items: {
@@ -28,18 +35,69 @@ export default {
             default: '',
         },
     },
-    data: () => ({}),
+    data: () => ({
+        loaded: [],
+        busy: false,
+        cursor: 0,
+    }),
     computed: {
+        // 검색과 정렬 기준으로 데이터 추출
         filtered() {
-            return this.items.filter(subject => {
-                return subject.name.includes(this.search)
-            })
+            const result = []
+
+            for (let item of this.items) {
+                const conditions = [item.name.includes(this.search)]
+
+                if (conditions.every(chk => chk)) {
+                    result.push(item)
+                }
+            }
+
+            return result
         },
     },
     methods: {
         mouseHover(subject) {
             this.$emit('subjecthover', subject)
         },
+        // 스크롤이 끝에 닿을시 데이터 더 가져오기 실행
+        loadMore() {
+            this.busy = true
+            setTimeout(() => {
+                this.addChunk(lazyLoadChunk)
+                this.busy = false
+            }, 0)
+        },
+        // 특정 size개의 데이터를 추가로 로드
+        addChunk(size) {
+            for (
+                let i = this.cursor;
+                i < this.cursor + size && i < this.filtered.length;
+                i++
+            ) {
+                this.loaded.push(this.filtered[i])
+            }
+            this.cursor += size
+        },
+        // 현재까지 로드한것 초기화
+        resetLoaded() {
+            this.cursor = 0
+            this.loaded = []
+        },
+        // 로드를 초기화하고 초기값 넣기
+        itemChanged() {
+            this.resetLoaded()
+            this.addChunk(lazyLoadChunk)
+        },
+    },
+    watch: {
+        // 정렬 기준이 바뀌어 추출된 데이터가 바뀌면, 스크롤 다시 초기화
+        filtered() {
+            this.itemChanged()
+        },
+    },
+    created() {
+        this.itemChanged()
     },
 }
 </script>
