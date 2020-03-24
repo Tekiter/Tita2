@@ -1,22 +1,21 @@
 <template>
-    <div>
-        <v-list
-            v-infinite-scroll="loadMore"
-            infinite-scroll-disabled="busy"
-            infinite-scroll-distance="10"
+    <div
+        v-infinite-scroll="loadMore"
+        infinite-scroll-disabled="busy"
+        infinite-scroll-distance="10"
+    >
+        <schedule-list-item
+            v-for="subject in loaded"
+            :key="`subject-${subject.idx}`"
+            @mouseover.native="mouseHover(subject)"
+            :subject="subject"
         >
-            <v-list-item
-                v-for="(subject, idx) in loaded"
-                :key="`subject-${idx}`"
-                @mouseover.native="mouseHover(subject)"
-            >
-                {{ subject.name }}
-            </v-list-item>
-        </v-list>
+        </schedule-list-item>
     </div>
 </template>
 <script>
 import infiniteScroll from 'vue-infinite-scroll'
+import ScheduleListItem from './ScheduleListItem'
 
 const lazyLoadChunk = 50
 
@@ -24,7 +23,9 @@ export default {
     directives: {
         infiniteScroll,
     },
-    components: {},
+    components: {
+        ScheduleListItem,
+    },
     props: {
         items: {
             type: Array,
