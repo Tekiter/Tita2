@@ -2,7 +2,7 @@
     <v-container fluid>
         <v-row>
             <v-col>
-                <v-card>
+                <v-card class="max-height">
                     <schedule-preview
                         :current-subject="hover"
                     ></schedule-preview>
@@ -10,9 +10,9 @@
                 </v-card>
             </v-col>
             <v-col>
-                <v-card>
+                <v-card class="max-height d-flex flex-column">
                     <subject-list
-                        class="scrollable max-height"
+                        class="scrollable flex-grow-1"
                         :items="subjects"
                         :search="search"
                         @subjecthover="hover = $event"
@@ -20,7 +20,9 @@
                 </v-card>
             </v-col>
             <v-col>
-                <v-card></v-card>
+                <v-card class="max-height">
+                    <group-manage></group-manage>
+                </v-card>
             </v-col>
         </v-row>
     </v-container>
@@ -43,12 +45,14 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 import SubjectList from '../components/selection/SubjectList'
 import SubjectFilter from '../components/selection/SubjectFilter'
 import SchedulePreview from '../components/selection/SchedulePreview'
+import GroupManage from '../components/group/GroupManage'
 
 export default {
     components: {
         SubjectList,
         SubjectFilter,
         SchedulePreview,
+        GroupManage,
     },
     data: () => ({
         search: '',
@@ -61,13 +65,15 @@ export default {
         ...mapGetters('dataset', ['hasDataset', 'subjects']),
     },
     methods: {
-        ...mapActions('dataset', ['loadCurrentStates']),
+        ...mapActions('dataset', ['loadDataset']),
+        ...mapActions('group', ['loadGroups']),
     },
     created() {
-        this.loadCurrentStates()
+        this.loadDataset()
         if (!this.hasDataset) {
             this.$router.push({ name: 'Home' })
         }
+        this.loadGroups()
     },
 }
 </script>
