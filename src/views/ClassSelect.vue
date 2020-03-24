@@ -43,9 +43,9 @@ export default {
     }),
     computed: {
         ...mapState('dataset', {
-            subjects: s => s.subjects,
+            // subjects: s => s.subjects,
         }),
-        ...mapGetters('dataset', ['hasDataset']),
+        ...mapGetters('dataset', ['hasDataset', 'subjects']),
     },
     methods: {
         ...mapActions('dataset', ['loadCurrentStates']),

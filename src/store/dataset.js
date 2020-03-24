@@ -5,21 +5,21 @@ export default {
     state: {
         school: '',
         timespan: '',
-        subjects: [],
+        subjects_raw: [],
     },
     mutations: {
         SET_DATASET(state, dataset) {
             state.school = dataset.school
             state.timespan = dataset.timespan
-            state.subjects = dataset.subjects
+            state.subjects_raw = dataset.subjects
         },
     },
     actions: {
         saveDataset({ state }) {
             saveStorage('current-dataset', {
-                school: state.shool,
+                school: state.school,
                 timespan: state.timespan,
-                subjects: state.subjects,
+                subjects: state.subjects_raw,
             })
         },
         loadDataset({ commit }) {
@@ -27,6 +27,7 @@ export default {
             commit('SET_DATASET', ld)
         },
         startSelection({ commit, dispatch }, { dataset }) {
+            console.log(dataset)
             commit('SET_DATASET', dataset)
             dispatch('saveDataset')
         },
@@ -35,7 +36,15 @@ export default {
         },
     },
     getters: {
-        hasDataset({ subjects }) {
+        subjects({ subjects_raw }) {
+            return subjects_raw.map((subject, idx) => {
+                return {
+                    ...subject,
+                    idx,
+                }
+            })
+        },
+        hasDataset(_, { subjects }) {
             if (Array.isArray(subjects)) {
                 return true
             }

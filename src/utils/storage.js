@@ -17,9 +17,9 @@ export function loadStorage(key, def) {
     if (raw === 'null' || raw === 'undefined') {
         return def
     }
-    try {
-        return JSON.parse(raw)
-    } catch {
-        return def
-    }
+    // try {
+    return JSON.parse(raw)
+    // } catch {
+    //     return def
+    // }
 }
