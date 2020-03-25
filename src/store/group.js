@@ -43,6 +43,9 @@ export default {
         // 그룹 정보를 초기화
         initGroups({ commit, dispatch }) {
             commit('RESET_GROUPS')
+            for (let i = 0; i < 3; i++) {
+                dispatch('createGroup')
+            }
             dispatch('saveGroups')
         },
         // 그룹들을 localStorage에 저장

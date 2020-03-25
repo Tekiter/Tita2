@@ -24,6 +24,9 @@
                 :key="idx"
             >
                 <h4>{{ subject.name }}</h4>
+                <div>
+                    {{ subject.time | subjectTime }}
+                </div>
                 <v-btn small icon @click="clickDeleteSubject(idx)">
                     <v-icon>mdi-delete </v-icon>
                 </v-btn>
@@ -40,7 +43,10 @@
 }
 </style>
 <script>
+import timeMixin from '../../mixins/time'
+
 export default {
+    mixins: [timeMixin],
     props: {
         group: {
             type: Object,

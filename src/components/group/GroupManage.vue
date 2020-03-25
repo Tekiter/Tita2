@@ -1,17 +1,19 @@
 <template>
-    <div>
-        <v-toolbar flat>
-            <v-toolbar-title>
-                그룹
-            </v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn icon @click="createGroup">
-                <v-icon>
-                    mdi-plus
-                </v-icon>
-            </v-btn>
-        </v-toolbar>
+    <div class="fill-height d-flex flex-column">
         <div>
+            <v-toolbar flat dense color="primary" dark>
+                <v-toolbar-title>
+                    그룹
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn icon @click="createGroup">
+                    <v-icon>
+                        mdi-plus
+                    </v-icon>
+                </v-btn>
+            </v-toolbar>
+        </div>
+        <div class="flex-grow-1 scrollable">
             <group-item
                 v-for="(group, idx) of groups"
                 :key="idx"

@@ -5,8 +5,15 @@
         </h4>
         <div class="d-flex">
             <div class="flex-grow-1">
-                <p>{{ subject.major }}</p>
+                <div>
+                    {{ subject.major }}
+                </div>
+                <div>
+                    {{ subject.time | subjectTime }}
+                </div>
             </div>
+
+            <!-- 어느 그룹에 추가할지 메뉴 -->
             <v-menu top offset-x>
                 <template v-slot:activator="{ on }">
                     <v-btn small v-on="on">
@@ -35,7 +42,10 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 
+import timeMixin from '../../mixins/time'
+
 export default {
+    mixins: [timeMixin],
     props: {
         subject: {
             type: Object,

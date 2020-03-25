@@ -11,12 +11,15 @@
             </v-col>
             <v-col>
                 <v-card class="max-height d-flex flex-column">
-                    <subject-list
+                    <!-- <subject-list
                         class="scrollable flex-grow-1"
                         :items="subjects"
                         :search="search"
                         @subjecthover="hover = $event"
-                    ></subject-list>
+                    ></subject-list> -->
+                    <subject-manage
+                        @subjecthover="hover = $event"
+                    ></subject-manage>
                 </v-card>
             </v-col>
             <v-col>
@@ -28,10 +31,6 @@
     </v-container>
 </template>
 <style lang="scss" scoped>
-.scrollable {
-    overflow-y: scroll;
-}
-
 .max-height {
     $height: 80vh;
 
@@ -42,14 +41,16 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 
-import SubjectList from '../components/selection/SubjectList'
+import SubjectManage from '../components/selection/SubjectManage'
+// import SubjectList from '../components/selection/SubjectList'
 import SubjectFilter from '../components/selection/SubjectFilter'
 import SchedulePreview from '../components/selection/SchedulePreview'
 import GroupManage from '../components/group/GroupManage'
 
 export default {
     components: {
-        SubjectList,
+        SubjectManage,
+        // SubjectList,
         SubjectFilter,
         SchedulePreview,
         GroupManage,
