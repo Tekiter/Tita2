@@ -20,6 +20,7 @@
                 :group="group"
                 @delete:group="clickDeleteGroup(idx)"
                 @delete:subject="clickDeleteSubject(idx, $event)"
+                @update:name="updateGroupInfo(idx, { name: $event })"
             ></group-item>
         </div>
     </div>
@@ -41,12 +42,20 @@ export default {
         ...mapGetters('group', []),
     },
     methods: {
-        ...mapActions('group', ['createGroup', 'deleteGroup', 'deleteSubject']),
+        ...mapActions('group', [
+            'createGroup',
+            'deleteGroup',
+            'deleteSubject',
+            'editGroupInfo',
+        ]),
         clickDeleteGroup(idx) {
             this.deleteGroup({ idx })
         },
         clickDeleteSubject(groupIdx, subjectIdx) {
             this.deleteSubject({ groupIdx, subjectIdx })
+        },
+        updateGroupInfo(idx, options) {
+            this.editGroupInfo({ idx, ...options })
         },
     },
 }

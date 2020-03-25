@@ -19,6 +19,12 @@ export default {
             state.groups = []
         },
 
+        EDIT_GROUP(state, { idx, name }) {
+            if (name != undefined) {
+                state.groups[idx].name = name
+            }
+        },
+
         PUSH_SUBJECT(state, { group, subject }) {
             state.groups[group].subjects.push(subject)
         },
@@ -38,6 +44,11 @@ export default {
         // 특정 인덱스의 그룹 삭제
         deleteGroup({ commit, dispatch }, { idx }) {
             commit('POP_GROUP', idx)
+            dispatch('saveGroups')
+        },
+        // 특정 인덱스의 그룹 정보 수정
+        editGroupInfo({ commit, dispatch }, { idx, name }) {
+            commit('EDIT_GROUP', { idx, name })
             dispatch('saveGroups')
         },
         // 그룹 정보를 초기화
