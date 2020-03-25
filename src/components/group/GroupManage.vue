@@ -16,7 +16,8 @@
                 v-for="(group, idx) of groups"
                 :key="idx"
                 :group="group"
-                @delete="clickDeleteGroup(idx)"
+                @delete:group="clickDeleteGroup(idx)"
+                @delete:subject="clickDeleteSubject(idx, $event)"
             ></group-item>
         </div>
     </div>
@@ -38,9 +39,12 @@ export default {
         ...mapGetters('group', []),
     },
     methods: {
-        ...mapActions('group', ['createGroup', 'deleteGroup']),
+        ...mapActions('group', ['createGroup', 'deleteGroup', 'deleteSubject']),
         clickDeleteGroup(idx) {
             this.deleteGroup({ idx })
+        },
+        clickDeleteSubject(groupIdx, subjectIdx) {
+            this.deleteSubject({ groupIdx, subjectIdx })
         },
     },
 }
