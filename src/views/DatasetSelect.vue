@@ -25,8 +25,10 @@ export default {
     }),
     methods: {
         ...mapActions('dataset', ['startSelection']),
+        ...mapActions('group', ['initGroups']),
         selectDataset(dataset) {
             this.startSelection({ dataset })
+            this.initGroups()
             this.$router.push({ name: 'ClassSelect' })
         },
     },

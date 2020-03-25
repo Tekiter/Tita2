@@ -27,12 +27,8 @@ export default {
             commit('SET_DATASET', ld)
         },
         startSelection({ commit, dispatch }, { dataset }) {
-            console.log(dataset)
             commit('SET_DATASET', dataset)
             dispatch('saveDataset')
-        },
-        loadCurrentStates({ dispatch }) {
-            dispatch('loadDataset')
         },
     },
     getters: {
