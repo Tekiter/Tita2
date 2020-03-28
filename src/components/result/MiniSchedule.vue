@@ -13,7 +13,7 @@ export default {
         },
     },
     mounted() {
-        this.$rets['timeTable'].width
+        this.$refs['timeTable'].width
     },
 }
 </script>
